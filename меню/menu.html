@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Меню</title>
+  <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><img src="Logo.png"> </div>
+
+    <nav class="nav">
+      <a href="#">Меню</a>
+      <a href="#">Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a><img src='Без названия-2.png' width="95px" ></a></div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="top-row">
+    
+    <!-- SORT -->
+    <div class="sort-wrapper">
+      <button class="sort-btn" id="openSort">Отсортировать</button>
+
+      <div class="sort-popup" id="sortPopup">
+        <div class="sort-header">
+          <span class="sort-text">Отсортировать по</span>
+          <span class="close" id="closeSort"><img src="Plus.png"></span>
+        </div>
+
+        <div class="sort-section">
+          <label ><input type="radio" name="sort" > Рекомендациям</label>
+          <label><input type="radio" name="sort" > Наиболее популярным</label>
+        </div>
+
+        <div class="sort-title" >Выбрать</div>
+        <div class="sort-section">
+          <label ><input type="checkbox"> Завтраки</label>
+          <label ><input type="checkbox"> Обеды</label>
+        </div>
+
+        <button class="apply">Применить</button>
+      </div>
+    </div>
+
+    <h1 id="color">Популярные блюда</h1>
+    <div class="cart">🛒</div>
+  </div>
+<!-- КОД ДЛЯ БЛЮД В МЕНЮ!!!! -->
+  <section class="grid">
+    <div class="card">
+      <div class="image">Заглушка</div>
+      <div class="name">Заглушка</div>
+      <div class="price">??? ₽</div>
+      <div class="add">+</div>
+    </div>
+
+    <div class="card"><div class="image">Заглушка</div><div class="name">Заглушка</div><div class="price">??? ₽</div><div class="add">+</div></div>
+    <div class="card"><div class="image">Заглушка</div><div class="name">Заглушка</div><div class="price">??? ₽</div><div class="add">+</div></div>
+    <div class="card"><div class="image">Заглушка</div><div class="name">Заглушка</div><div class="price">??? ₽</div><div class="add">+</div></div>
+    <div class="card"><div class="image">Заглушка</div><div class="name">Заглушка</div><div class="price">??? ₽</div><div class="add">+</div></div>
+     <div class="card"><div class="image">Заглушка</div><div class="name">Заглушка</div><div class="price">??? ₽</div><div class="add">+</div></div>
+  </section>
+</main>
+
+<script >const openSort = document.getElementById('openSort');
+const closeSort = document.getElementById('closeSort');
+const popup = document.getElementById('sortPopup');
+
+openSort.addEventListener('click', () => {
+  popup.style.display =
+    popup.style.display === 'block' ? 'none' : 'block';
+});
+
+closeSort.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.sort-wrapper')) {
+    popup.style.display = 'none';
+  }
+});</script>
+</body>
+</html>
