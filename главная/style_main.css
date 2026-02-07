@@ -22,6 +22,7 @@ body {
 .nav {
   display: flex;
   gap: 150px;
+  z-index: 1000 !important;
 }
 
 .nav a {
@@ -36,6 +37,7 @@ body {
   align-items: center;
   gap: 20px;
   font-size: 20px;
+  z-index: 1000 !important;
 }
 
 .login {
