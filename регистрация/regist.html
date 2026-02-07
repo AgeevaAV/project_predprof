@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head> 
+    <meta charset="UTF-8" /> 
+    <title>Регистрация</title> 
+    <link rel="stylesheet" href="registr.css" /> 
+</head> 
+<body> 
+ 
+<div class="page"> 
+ 
+    <!-- Левая часть --> 
+    <div class="left"> 
+        <div class="logo"><img src="Logo.png"></div> 
+ 
+        <div class="form-box"> 
+            <h1>Зарегистрироваться</h1> 
+ 
+            <div class="input-group"> 
+                <span class="icon"><img src="User Icon.png" ></span> 
+                <input type="text" placeholder="ПОЛНОЕ ИМЯ"> 
+            </div> 
+ 
+            <div class="input-group"> 
+                <span class="icon"><img src="Email.png"></span> 
+                <input type="email" placeholder="EMAIL"> 
+            </div> 
+ 
+            <div class="input-group"> 
+                <span class="icon"><img src="Icon.png"></span> 
+                <input type="password" placeholder="ПАРОЛЬ" id="password"> 
+                <span class="eye" id="togglePass"><img src="Icon-2.png"></span> 
+            </div> 
+ 
+            <button class="btn-main">ЗАРЕГИСТРИРОВАТЬСЯ</button> 
+ 
+            <p class="login-text"> 
+                Уже есть аккаунт? <a href="#">Войти</a> 
+            </p> 
+        </div> 
+    </div> 
+ 
+    <!-- Правая часть --> 
+    <div class="right"> 
+        <div class="pattern"></div> 
+    </div> 
+ 
+</div> 
+ <!-- для глазика, чтоб скрывать пароль (потом можно изменить) -->
+<script> const toggle = document.getElementById("togglePass"); 
+const password = document.getElementById("password"); 
+ 
+toggle.addEventListener("click", () => { 
+    if (password.type === "password") { 
+        password.type = "text"; 
+    } else { 
+        password.type = "password"; 
+    } 
+});</script> 
+</body> 
+</html>
