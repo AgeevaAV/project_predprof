@@ -42,9 +42,20 @@ body {
   width: 1500px;
   margin: 30px auto;
 }
+.title-wrapper {
+  display: flex;
+  align-items: center; 
+  gap: 10px; 
+}
 #color{
   color: #323142;
   font-size: 32px;
+  font-weight: 700;
+  padding: 0;
+}
+#color_2{
+  color: #6f66c7;
+   font-size: 32px;
   font-weight: 700;
 }
 .top-row {
