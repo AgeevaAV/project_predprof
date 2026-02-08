@@ -13,27 +13,73 @@ body {
 
 /* ===== HEADER ===== */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 60px;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    border-bottom: 1px solid #eee;
+    background: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo {
-  font-size: 28px;
+    font-size: 28px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
 }
 
 .nav {
-  display: flex;
-  gap: 150px;
+    display: flex;
+    gap: 150px;
 }
 
 .nav a {
-  text-decoration: none;
-  color: #606060;
-  font-weight: 600;
-  font-size: 20px;
+    text-decoration: none;
+    color: #606060;
+    font-weight: 600;
+    font-size: 20px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #7e7cc1;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #7e7cc1;
+    transition: width 0.3s ease;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+.profile a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile img {
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.profile img:hover {
+    transform: scale(1.05);
 }
 
 
