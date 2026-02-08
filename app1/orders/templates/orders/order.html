@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static "css/pay.css" %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><a href='{% url "index" %}'><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "menu" %}'>Меню</a>
+      <a href='{% url "box" %}'>Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+<main class="wrapper">
+  <h1>Оплата</h1>
+{% if cart_items %}
+  <div class="payment-table">
+    {% for item in cart_items %}
+    {% widthratio item.product.price 1 item.quantity as total1 %}
+    <div class="row">
+      <span>{{ item.product.name }}</span>
+      <span>{{ item.quantity }} шт.</span>
+      <span>{{ total1 }} р</span>
+      <form method="post" action="{% url 'increase_item' item.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">+</button>
+      </form>
+      <form method="post" action="{% url 'decrease_item' item.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">-</button>
+       </form>
+      <form method="post" action="{% url 'remove_item' item.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">🗑️</button>
+       </form>
+    </div>
+    {% endfor %}
+  </div>
+  <p><strong>Итого: {{ total }} ₽</strong></p>
+  <form method="post" action="{% url 'create_order' %}">
+    {% csrf_token %}
+    <button class="btn-pay" type="submit">Оплатить</button>
+   </form>
+{% else %}
+    <p>Корзина пуста</p>
+{% endif %}
+</main>
+
+</body>
+</html>

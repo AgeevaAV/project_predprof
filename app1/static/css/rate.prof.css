@@ -1,0 +1,198 @@
+
+       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f5f5f8;
+  overflow-x: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    border-bottom: 1px solid #eee;
+    background: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 28px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+}
+
+.nav {
+    display: flex;
+    gap: 150px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #606060;
+    font-weight: 600;
+    font-size: 20px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav a:hover {
+    color: #7e7cc1;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #7e7cc1;
+    transition: width 0.3s ease;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+.profile a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile img {
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.profile img:hover {
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+
+        .main-container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            color: #33334d;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #7f8c8d;
+            font-size: 18px;
+        }
+
+
+        
+
+
+
+
+
+        .ratings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .rating-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .rating-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #33334d;
+        }
+
+        .order-date {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+            font-size: 28px;
+        }
+
+        .star-filled {
+            color: #7e7cc1;
+        }
+
+        .star-empty {
+            color: #d3d3d3;
+        }
+
+        .order-dishes {
+            font-size: 16px;
+            color: #5d5d7e;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .delete-btn {
+            background: #6C5FBC;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            align-self: flex-end;
+            width: 150px;
+        }
+
+        .delete-btn:hover {
+            background: #5b50a3;
+        }

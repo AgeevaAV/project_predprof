@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static "css/menu.css" %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "menu" %}'>Меню</a>
+      <a href='{% url "box" %}'>Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="top-row">
+    
+    <div class="sort-wrapper">
+      <button class="sort-btn" id="openSort">Отсортировать</button>
+
+      <div class="sort-popup" id="sortPopup">
+
+<form method="get">
+    {% csrf_token %} 
+        <div class="sort-header">
+          <span class="sort-text">Отсортировать по</span>
+          <span class="close" id="closeSort"><img src="{% static "img/Plus.png" %}"></span>
+        </div>
+
+
+
+
+        <div><strong>Ваши настройки из профиля:</strong><br>
+        {% if request.user.fish %}❌ Рыба{% endif %}
+        {% if request.user.chicken %}❌ Курица{% endif %}
+        {% if request.user.lactose %}❌ Лактоза{% endif %}
+        
+        <div><button type="submit" name="apply_profile_filters" value='1'>
+             Применить фильтры из профиля
+        </button></div></div>
+        <div class="sort-title" >Выбрать</div>
+        <div class="sort-section">
+          <label ><input type="checkbox" {% if not op %}checked{% endif %} name="option1"> Рыба</label>
+          <label ><input type="checkbox" {% if not op2 %}checked{% endif %}  name="option2"> Курица</label>
+          <label ><input type="checkbox" {% if not op3 %}checked{% endif %}  name="option3"> Лактоза</label>
+        </div>
+
+        <button type="submit" class="apply">Применить</button>
+
+        </form>
+      </div>
+
+    </div>
+
+    <div class="title-wrapper">
+  <h1 id="color">Популярные</h1>
+  <h1 id="color_2">блюда</h1>
+</div>
+    <div class="cart"><a href='{% url "cart_view" %}' ><img src="{% static "img/Buy.png" %}"></a></div>
+  </div>
+
+  
+
+  <section class="grid">
+    {% for product, rating_in_html in catalog %}
+    <div class="card">
+      <div class="image">{% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% endif %}</div>
+      
+      <div><a class="name" style='text-decoration: none;' href='{% url "detail" product.id %}'>{{ product.name }}</a></div>
+      <div class="price">{{ product.price }} ₽</div>
+      <form method="post" action="{% url 'add_to_cart' product.id product.breakfast_or_lunch %}">
+            {% csrf_token %}
+            <button class="add" type="submit">+</button>
+        </form>
+    </div>
+    {% endfor %}
+  </section>
+</main>
+
+<script >const openSort = document.getElementById('openSort');
+const closeSort = document.getElementById('closeSort');
+const popup = document.getElementById('sortPopup');
+
+openSort.addEventListener('click', () => {
+  popup.style.display =
+    popup.style.display === 'block' ? 'none' : 'block';
+});
+
+closeSort.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.sort-wrapper')) {
+    popup.style.display = 'none';
+  }
+});</script>
+</body>
+</html>

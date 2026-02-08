@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static "css/combo.css" %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "menu" %}'>Меню</a>
+      <a href='{% url "box" %}'>Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+
+<main class="container">
+  
+    <div class="title-wrapper">
+  <h1 id="color">Цены на</h1>
+  <h1 id="color_2">наборы</h1> </div>
+
+  <section class="grid">
+    {% for box1 in box %}
+    <div class="card">
+      <div class="image">{% if box1.image %}
+        <img src="{{ box1.image.url }}" alt="{{ box1.name }}">
+    {% endif %}</div>
+      <div class="name">{{ box1.name }}</div>
+      <div class="price">{{ box1.price }} ₽</div>
+      <form method="post" action="{% url "buybox" box1.id %}">
+            {% csrf_token %}
+            {% if box2 == 'Yes' %}
+            <div><button class="add" type="submit">+</button></div>
+            {% elif box2 == 'No, but' %}
+            У вас уже есть набор
+            {% endif %}
+        </form>
+    </div>
+    {% endfor %}
+  </section>
+</main>
+</body>
+</html>

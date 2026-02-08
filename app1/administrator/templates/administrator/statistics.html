@@ -1,0 +1,78 @@
+{% if request.user.role == 'Administrator' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{% static "css/static.css" %}">
+  
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "statistics" %}'>Статистика</a>
+      <a href='{% url "application" %}'>Заявки</a>
+      <a href='{% url "reports" %}'>Отчеты</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    <h1>Статистика оплат и посещаемости</h1>
+    
+    <div class="tables-wrapper">
+      <div class="table-container">
+        <div class="table">
+          <div class="table-header">
+            <span>Количество оплаченных блюд</span>
+          </div>
+          <div class="table-row">
+            <span>За день</span>
+            <span>{{day_orders}} шт</span>
+          </div>
+          <div class="table-row">
+            <span>За неделю</span>
+            <span>{{week_orders}} шт</span>
+          </div>
+          <div class="table-row">
+            <span>За месяц</span>
+            <span>{{month_orders}} шт</span>
+          </div>
+        </div>
+      </div>
+      <div class="table-container">
+        <div class="table">
+          <div class="table-header">
+            <span>Посещаемость</span>
+          </div>
+          <div class="table-row">
+            <span>За день</span>
+            <span>{{day_orders_people}} чел</span>
+          </div>
+          <div class="table-row">
+            <span>За неделю</span>
+            <span>{{week_orders_people}} чел</span>
+          </div>
+          <div class="table-row">
+            <span>За месяц</span>
+            <span>{{month_orders_people}} чел</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
+
+{% else %}
+<h2>У вас нет прав</h2>
+{% endif %}

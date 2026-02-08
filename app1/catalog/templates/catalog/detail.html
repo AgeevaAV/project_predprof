@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href='{% static "css/index.css" %}'>
+    
+    <title>{{ title }}</title>
+</head>
+<body>
+    <p class='r'>{{ content }}</p>
+    <dir><a class='r' href='{% url "index" %}'>Главная</a></dir>
+    <dir><a class='r' href='{% url "register" %}'>Register</a></dir>
+    <dir><a class='r' href='{% url "menu" %}'>Меню</a></dir>
+    <dir><a class='r' href='{% url "box" %}'>Наборы</a></dir>
+
+
+    <dir><h1>------------------------------------</h1></dir>
+    <dir><a> Название: {{ card.name }}</a></dir>
+    <dir><a>Что в него входит: {{ card.structure }}</a></dir>
+    <dir><a>Оценки</a></dir>
+    {% for rating_from in rating_from_views %}
+    <a>{{ rating_from.rating }}</a>
+
+    {% endfor %} 
+    </body>
+</html>
