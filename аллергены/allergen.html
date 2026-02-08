@@ -9,19 +9,21 @@
 <body>
     <!-- Header Menu -->
     <header class="header">
-        <div class="logo"><img src="Logo.png" alt="Логотип"></div>
+        <div class="logo">
+            <img src="Logo.png" alt="Логотип">
+        </div>
         <nav class="nav">
             <a href="#">Меню</a>
             <a href="#">Цена</a>
             <a href="#">Контакты</a>
         </nav>
         <div class="profile">
-            <a href="#"><img src='Без названия-2.png' width="75px" alt="Профиль"></a>
+            <a href="#"><img src="Без названия-2.png" width="70"></a>
         </div>
     </header>
 
     <!-- Main Content -->
-    <div class="main-container">
+    <div class="main">
         <div class="container">
             <div class="page-header">
                 <h1>Выбор аллергенов</h1>
@@ -32,7 +34,6 @@
                 <div class="allergen-item">
                     <input type="checkbox" id="fish" class="allergen-checkbox">
                     <label for="fish" class="allergen-label">
-                        <div class="allergen-icon">🐟</div>
                         <div class="allergen-text">
                             <div class="allergen-name">Рыба и морепродукты</div>
                             <div class="allergen-description">Включая все виды рыбы, креветки, мидии и другие морепродукты</div>
@@ -44,7 +45,6 @@
                 <div class="allergen-item">
                     <input type="checkbox" id="chicken" class="allergen-checkbox">
                     <label for="chicken" class="allergen-label">
-                        <div class="allergen-icon">🐔</div>
                         <div class="allergen-text">
                             <div class="allergen-name">Курица и птица</div>
                             <div class="allergen-description">Все виды птицы, включая курицу, индейку, утку и их производные</div>
@@ -56,7 +56,6 @@
                 <div class="allergen-item">
                     <input type="checkbox" id="lactose" class="allergen-checkbox">
                     <label for="lactose" class="allergen-label">
-                        <div class="allergen-icon">🥛</div>
                         <div class="allergen-text">
                             <div class="allergen-name">Лактоза</div>
                             <div class="allergen-description">Молочные продукты: молоко, сыр, йогурт, сливочное масло</div>
@@ -67,7 +66,7 @@
             </div>
 
             <button class="save-button" id="saveButton">
-                <span>Сохранить выбор</span>
+                Сохранить выбор
             </button>
         </div>
     </div>
