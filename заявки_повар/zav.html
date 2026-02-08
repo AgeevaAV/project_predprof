@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Заявки на продукты</title>
+  <link rel="stylesheet" href="zav.css">
+   
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><img src="Logo.png"> </div>
+
+    <nav class="nav">
+      <a href="#">Учет</a>
+      <a href="#">Заявки</a>
+      <a href="#">Остаток</a>
+      <a href="#">Контроль</a>
+    </nav>
+
+    <div class="profile"><a><img src='Без названия-2.png' width="75px" ></a></div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="page-title">
+    <h1>Заявка на продукты</h1>
+    <p>Заполните форму для заказа продуктов</p>
+  </div>
+
+  <div class="form-card">
+    <div class="form-group">
+      <label class="form-label">Продукт</label>
+      <input type="text" class="product-input" id="product-input" placeholder="Введите название продукта">
+      <div class="input-hint">Например: Курица, рыба, помидоры</div>
+    </div>
+
+     <div class="form-group">
+      <label class="form-label">Количество</label>
+      <div>
+        <input type="number" class="amount-input" id="amount-input" placeholder="Введите количество" min="0.1" max="1000" step="0.1" value="1">
+        <span class="unit-label">кг</span>
+      </div>
+      <div class="input-hint">Введите количество в килограммах (например: 1.5, 2.75, 0.5)</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Срочность</label>
+      <div class="urgency-grid">
+        <div class="urgency-option">
+          <input type="radio" name="urgency" id="urgent" value="urgent">
+          <label class="urgency-label" for="urgent">
+            Срочно<br>
+            <small>Сегодня</small>
+          </label>
+        </div>
+        
+        <div class="urgency-option">
+          <input type="radio" name="urgency" id="normal" value="normal">
+          <label class="urgency-label" for="normal">
+            Обычно<br>
+            <small>Завтра</small>
+          </label>
+        </div>
+        
+        <div class="urgency-option">
+          <input type="radio" name="urgency" id="low" value="low">
+          <label class="urgency-label" for="low">
+            Не срочно<br>
+            <small>На неделе</small>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <button class="submit-button" onclick="submitRequest()">
+      Отправить заявку
+    </button>
+  </div>
+</div>
+
+<script>
+  function submitRequest() {
+    const productInput = document.getElementById('product-input');
+    const amountInput = document.getElementById('amount-input');
+    const unitSelect = document.getElementById('unit-select');
+    const urgencyRadio = document.querySelector('input[name="urgency"]:checked');
+    
+    // Получаем название продукта
+    const productName = productInput.value.trim();
+    
+    // Валидация продукта
+    if (!productName) {
+      alert('Пожалуйста, введите название продукта');
+      productInput.focus();
+      return;
+    }
+    
+    // Валидация количества
+    const amount = parseFloat(amountInput.value);
+    if (!amount || amount <= 0) {
+      alert('Пожалуйста, введите корректное количество');
+      amountInput.focus();
+      return;
+    }
+    
+    
+    
+    // Валидация срочности
+    if (!urgencyRadio) {
+      alert('Пожалуйста, выберите срочность заявки');
+      return;
+    }
+    
+    let urgencyText = '';
+    switch(urgencyRadio.value) {
+      case 'urgent':
+        urgencyText = 'Срочно (сегодня)';
+        break;
+      case 'normal':
+        urgencyText = 'Обычно (завтра)';
+        break;
+      case 'low':
+        urgencyText = 'Не срочно (на неделе)';
+        break;
+    }
+    
+    const request = {
+      product: productName,
+      amount: amount,
+      unit: 'кг',
+      urgency: urgencyText
+    };
+    
+    // Показываем результат
+    const message = `Заявка отправлена!\n\nПродукт: ${request.product}\nКоличество: ${request.amount} ${request.unit}\nСрочность: ${request.urgency}`;
+    alert(message);
+    
+    // Очищаем форму
+    resetForm();
+  }
+
+  function resetForm() {
+    document.getElementById('product-input').value = '';
+    document.getElementById('amount-input').value = '1';
+    
+    // Сброс радио-кнопок
+    const radios = document.querySelectorAll('input[name="urgency"]');
+    radios.forEach(radio => {
+      radio.checked = false;
+    });
+    
+    // Фокус на поле продукта
+    document.getElementById('product-input').focus();
+  }
+
+  // Инициализация при загрузке
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('product-input').focus();
+  });
+</script>
+
+</body>
+</html>
