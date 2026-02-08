@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href='{% static "css/index.css" %}'>
+    
+    <title>{{ title }}</title>
+</head>
+<body>
+    <p class='r'>{{ content }}</p>
+    <dir><a class='r' href='{% url "menu" %}'>Catalog</a></dir>
+    <dir><a class='r' href='{% url "box" %}'>Наборы</a></dir>
+    <dir><a class='r' href='{% url "index" %}'>Главная</a></dir>
+    <dir><a class='r' href='{% url "register" %}'>Register</a></dir>
+
+    <dir><a>---------------------------------------------------</a></dir>
+    <dir><a>Ваш email {{ userData.email }}</a></dir>
+    <dir><a>Ваш полное имя {{ userData.name }}</a></dir>
+    <dir><a class='r' href='{% url "profile" %}'>Назад</a></dir>
+</body>
+</html>

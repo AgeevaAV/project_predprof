@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{% static "css/opl.css" %}" /> 
+       
+</head>
+<body>
+
+   <header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "menu" %}'>Меню</a>
+      <a href='{% url "box" %}'>Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+
+    <main>
+        <h1>Профиль</h1>
+        <div class="profile-card">
+            <a class="menu-item" href='{% url "your_orders" %}'>Заказы</a>
+            <a class="menu-item" href='#'>Данные</a>
+            <a class="menu-item" href='{% url "comment" %}'>Отзывы</a>
+            <a class="menu-item" href='{% url "allergens" %}'>Предпочтения</a>
+            <a class="menu-item" href='{% url "cart_view" %}'>Оплата</a>
+            <div class="menu-item">
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="menu-item" type="submit" >Выйти</button>
+            </form>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

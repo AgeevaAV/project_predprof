@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static "css/rate.prof.css" %}">
+   
+</head>
+<body>
+   <header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "menu" %}'>Меню</a>
+      <a href='{% url "box" %}'>Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+    <div class="main-container">
+        <div class="page-header">
+            <h1>Мои оценки за заказы</h1>
+            <p>Просмотр и удаление ваших оценок</p>
+        </div>
+
+        <div class="ratings-list" id="ratings-list">
+             {% for rating1 in rating %}
+
+                <dir><a>Заказ: {{ rating1.catalog }}</a></dir>
+                <dir><a>Ваша оценка этому заказу: {{ rating1.rating }}</a></dir>
+                <form method="post" action="{% url 'delete_comment' rating1.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Удалить</button>
+                </form>
+            {% endfor %}
+        </div>
+    </div>
+       
+</body>
+</html>

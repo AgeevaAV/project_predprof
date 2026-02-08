@@ -1,0 +1,66 @@
+{% if request.user.role == 'Cook' %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static "css/uchet.css" %}">
+  
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "accounting" %}'>Учет</a>
+      <a href='{% url "application_c" %}'>Заявки</a>
+      <a href='{% url "remaining" %}'>Остаток</a>
+      <a href='{% url "control" %}'>Контроль</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+<div class="container">
+  <h1>Учет выданных завтраков</h1>
+
+  <div class="table">
+    <div class="table-header">
+      <span>Название</span>
+      <span>Выдано</span>
+      <span>Осталось выдать</span>
+    </div>
+{% for breakfast_name,breakfast_ready,breakfast_not_ready in breakfast %}
+    <div class="table-row">
+      <span>{{ breakfast_name }}</span>
+      <span>{{ breakfast_ready }} шт</span>
+      <span>{{ breakfast_not_ready }} шт</span>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h1>Учет выданных обедов</h2>
+  <div class="table">
+    <div class="table-header">
+      <span>Название</span>
+      <span>Выдано</span>
+      <span>Осталось выдать</span>
+    </div>
+  {% for lunch_name,lunch_ready,lunch_not_ready in lunch %}
+    <div class="table-row">
+      <span>{{ lunch_name }}</span>
+      <span>{{ lunch_ready }} шт</span>
+      <span>{{ lunch_not_ready }} шт</span>
+    </div>
+{% endfor %}
+  </div>
+</div>
+
+</body>
+</html>
+{% else %}
+<h2>У вас нет прав</h2>
+{% endif %}

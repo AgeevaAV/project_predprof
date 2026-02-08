@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{% static "css/style_main.css" %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo"><img src="{% static "img/Logo.png" %}"> </div>
+
+    <nav class="nav">
+      {% if user.is_authenticated %}
+      <a href='{% url "menu" %}'>Меню</a>
+      <a href='{% url "box" %}'>Цена</a>
+      {% else %}
+      <a href='{% url "login" %}'>Меню</a>
+      <a href='{% url "login" %}'>Цена</a>
+      {% endif %}
+      <a href="#">Контакты</a>
+    </nav>
+    <div class="auth-buttons">
+      {% if user.is_authenticated %}
+      <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px"></a></div>
+      {% else %}
+      <a href='{% url "login" %}' class="login">Войти</a>
+      <a href='{% url "register" %}' class="register">Зарегистрироваться</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main class="hero">
+    <div class="hero-text">
+      <h1>
+        Наслаждайся любимой едой в своей
+        <span class="highlight">школе</span>
+      </h1>
+
+      <p>
+        Подбирай еду на свой вкус. Мы учтём все предпочтения и аллергии.
+        Бери абонементы или выбирай сам. Питайся правильно и вкусно с нами.
+      </p>
+
+    </div>
+
+    <div class="hero-image">
+        <img src="{% static "img/food.png" %}" alt="Еда" width="1200px" height="900px">
+        <button class="main-btn">Подробнее</button>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% if request.user.role == 'Cook' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static "css/octat.css" %}">
+  
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "accounting" %}'>Учет</a>
+      <a href='{% url "application_c" %}'>Заявки</a>
+      <a href='{% url "remaining" %}'>Остаток</a>
+      <a href='{% url "control" %}'>Контроль</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+
+<div class="container">
+  <h1>Количество оставшихся продуктов</h1>
+
+  <div class="table">
+  <div class="table-header">
+    <span>Название</span>
+    <span>Осталось</span>
+  </div>
+<form method="post" action="{% url 'food_change' %}">
+    {% csrf_token %}
+    {% for food1 in food %}
+  <div class="table-row">
+    <span class="product-name">{{ food1.name }}</span>
+    <span>
+      <input name="product_weight1_{{ food1.id }}" type="number" class="quantity-input" value="{{ food1.weight }}" min="0" step="1">
+      <span class="unit">кг</span>
+    </span>
+  </div>
+
+
+
+    {% endfor %}
+    {% if food %}
+        <dir><button class="main-btn" type="submit">Сохранить</button></dir>
+    {% endif %}
+    </form>
+    
+</div>
+
+  <h1>Количество оставшихся блюд</h2>
+
+  <div class="table">
+    <div class="table-header">
+      <span>Название</span>
+      <span>Осталось</span>
+    </div>
+{% for order_dont_take in order %}
+    <div class="table-row">
+      <span>{{ order_dont_take.0 }}</span>
+      <span>{{ order_dont_take.1 }} шт</span>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+
+</body>
+</html>
+{% else %}
+<h2>У вас нет прав</h2>
+{% endif %}

@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head> 
+    <meta charset="UTF-8" /> 
+    <title>{{ title }}</title> 
+    <link rel="stylesheet" href="{% static "css/registr.css" %}" /> 
+</head> 
+<body> 
+ 
+<div class="page"> 
+    <div class="left"> 
+        <div class="logo"><img src="{% static "img/Logo.png" %}"></div> 
+ 
+        <div class="form-box"> 
+            <h1>Зарегистрироваться</h1> 
+            <form method="post">
+                {% csrf_token %}
+            <div class="input-group"> 
+                <span class="icon"><img src="{% static "img/User Icon.png" %}" ></span> 
+                <input type="text" name="name" placeholder="ПОЛНОЕ ИМЯ" value="{{ form.name.value|default:'' }}" required>
+            </div> 
+
+            <div class="input-group"> 
+                <span class="icon"><img src="{% static "img/Email.png" %}"></span>
+                <input type="email" name="email" placeholder="EMAIL" value="{{ form.email.value|default:'' }}" required> 
+            </div> 
+ 
+            <div class="input-group"> 
+                <span class="icon"><img src="{% static "img/Icon.png" %}"></span> 
+                <input type="password" 
+                    name="password1" 
+                    id="id_password1"
+                    placeholder="Введите пароль"
+                    value="{{ form.password1.value|default:'' }}"
+                    required>
+                
+
+                <span class="eye" id="togglePass"><img src="{% static "img/Icon-2.png" %}"></span> 
+            </div>
+            <div class="input-group"> 
+                <span class="icon"><img src="{% static "img/Icon.png" %}"></span> 
+                <input type="password" 
+                    name="password2" 
+                    id="id_password2"
+                    placeholder="Повторите пароль"
+                    value="{{ form.password2.value|default:'' }}"
+                    required>
+                
+                {% if form.password2.errors %}
+                    {% for error in form.password2.errors %}
+                        <p style="color: red;">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                <span class="eye" id="togglePass"><img src="{% static "img/Icon-2.png" %}"></span> 
+            </div>
+
+            <button type="submit" class="btn-main">ЗАРЕГИСТРИРОВАТЬСЯ</button> 
+            </form>
+            <p class="login-text"> 
+                Уже есть аккаунт? <a href='{% url "login" %}'>Войти</a> 
+            </p> 
+        </div> 
+    </div> 
+ 
+    <div class="right"> 
+        <div class="pattern"></div> 
+    </div> 
+ 
+</div>
+<script> const toggle = document.getElementById("togglePass"); 
+const password = document.getElementById("password"); 
+ 
+toggle.addEventListener("click", () => { 
+    if (password.type === "password") { 
+        password.type = "text"; 
+    } else { 
+        password.type = "password"; 
+    } 
+});</script> 
+</body> 
+</html>

@@ -1,0 +1,49 @@
+{% if request.user.role == 'Cook' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static "css/control_food.css" %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "accounting" %}'>Учет</a>
+      <a href='{% url "application_c" %}'>Заявки</a>
+      <a href='{% url "remaining" %}'>Остаток</a>
+      <a href='{% url "control" %}'>Контроль</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+
+<main class="container">
+  
+    <div class="title-wrapper">
+  <h1 id="color">Контроль</h1>
+  <h1 id="color_2">готовых блюд</h1> </div>
+  
+  <section class="grid">
+    {% for ord in Order %}
+    <div class="card">
+      <div class="image">{{ ord.structure }}</div>
+      <div class="name">{{ ord.structure }}</div>
+      <form method="post" action="{% url 'ready_change' ord.id %}">
+            {% csrf_token %}
+     <button class="btn">Готово</button>
+     </form>
+    </div>
+    {% endfor %}
+  </section>
+</main>
+</body>
+</html>
+{% else %}
+<h2>У вас нет прав</h2>
+{% endif %}

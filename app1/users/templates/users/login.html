@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head> 
+    <meta charset="UTF-8" /> 
+    <title>{{title}}</title> 
+    <link rel="stylesheet" href="{% static "css/enter.css" %}" /> 
+</head> 
+<body> 
+ 
+<div class="page"> 
+    <div class="left"> 
+        <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div> 
+
+        <div class="form-box"> 
+            <h1>Войти</h1> 
+            <form method="post">
+                {% csrf_token %}
+            <div class="input-group"> 
+                <span class="icon"><img src="{% static "img/Email.png" %}"></span> 
+                <input type="email" name="email1" placeholder="EMAIL"> 
+            </div> 
+ 
+            <div class="input-group"> 
+                <span class="icon"><img src="{% static "img/Icon.png" %}"></span> 
+                <input type="password" name="password" placeholder="ПАРОЛЬ" id="password"> 
+                <span class="eye" id="togglePass"><img src="{% static "img/Icon-2.png" %}"></span> 
+            </div> 
+            <button type="submit" class="btn-main">ВОЙТИ</button> 
+            </form>
+            <p class="login-text"> 
+                Создать новый аккаунт? <a href='{% url "register" %}'>Зарегистрироваться</a> 
+            </p> 
+        </div> 
+    </div>
+    <div class="right"> 
+        <div class="pattern"></div> 
+    </div> 
+ 
+</div>
+<script> const toggle = document.getElementById("togglePass"); 
+const password = document.getElementById("password"); 
+ 
+toggle.addEventListener("click", () => { 
+    if (password.type === "password") { 
+        password.type = "text"; 
+    } else { 
+        password.type = "password"; 
+    } 
+});</script> 
+</body> 
+</html> 

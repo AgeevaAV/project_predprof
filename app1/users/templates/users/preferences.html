@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static "css/allergen.css" %}">
+</head>
+<body>
+    <header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "menu" %}'>Меню</a>
+      <a href='{% url "box" %}'>Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+    </header>
+
+    <div class="main">
+        <div class="container">
+            <div class="page-header">
+                <h1>Выбор аллергенов</h1>
+                <p>Отметьте продукты, на которые у вас есть аллергия</p>
+            </div>
+<form method="post" action="{% url 'change_allergens' %}">
+        {% csrf_token %} 
+            <div class="allergen-list">
+                <div class="allergen-item">
+                    <input type="checkbox" id="fish" class="allergen-checkbox" {% if user.fish %}checked{% endif %} name="option1">
+                    <label for="fish" class="allergen-label">
+                        <div class="allergen-text">
+                            <div class="allergen-name">Рыба и морепродукты</div>
+                            <div class="allergen-description">Включая все виды рыбы, креветки, мидии и другие морепродукты</div>
+                        </div>
+                        <div class="checkmark"></div>
+                    </label>
+                </div>
+
+                <div class="allergen-item">
+                    <input type="checkbox" id="chicken" class="allergen-checkbox" {% if user.chicken %}checked{% endif %} name="option2">
+                    <label for="chicken" class="allergen-label">
+                        <div class="allergen-text">
+                            <div class="allergen-name">Курица и птица</div>
+                            <div class="allergen-description">Все виды птицы, включая курицу, индейку, утку и их производные</div>
+                        </div>
+                        <div class="checkmark"></div>
+                    </label>
+                </div>
+
+                <div class="allergen-item">
+                    <input type="checkbox" id="lactose" class="allergen-checkbox" {% if user.lactose %}checked{% endif %} name="option3">
+                    <label for="lactose" class="allergen-label">
+                        <div class="allergen-text">
+                            <div class="allergen-name">Лактоза</div>
+                            <div class="allergen-description">Молочные продукты: молоко, сыр, йогурт, сливочное масло</div>
+                        </div>
+                        <div class="checkmark"></div>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="save-button" id="saveButton">
+                Сохранить выбор
+            </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

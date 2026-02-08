@@ -1,0 +1,155 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+     <link rel="stylesheet" href="{% static "css/rating.css" %}" /> 
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><a href='{% url "index" %}' ><img src="{% static "img/Logo.png" %}"></a></div>
+
+    <nav class="nav">
+      <a href='{% url "menu" %}'>Меню</a>
+      <a href='{% url "box" %}'>Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a href='{% url "profile" %}' ><img src='{% static "img/Без названия-2.png" %}' width="75px" ></a></div>
+  </div>
+</header>
+
+<div class="content">
+    <h1>{{ order.structure }}</h1>
+    {% if order.take_order and rating1 %}
+    <p class="review-text">Оставьте пожалуйста отзыв о блюде</p>
+    <form method="post" action="{% url 'add_to_comment2' order.id %}">
+                {% csrf_token %}
+    <input type="hidden" name="estimation" id="rating-input" value="">
+    <div class="stars" id="stars-container" name="estimation">
+        <span class="star star-empty" data-value="1">★</span>
+        <span class="star star-empty" data-value="2">★</span>
+        <span class="star star-empty" data-value="3">★</span>
+        <span class="star star-empty" data-value="4">★</span>
+        <span class="star star-empty" data-value="5">★</span>
+    </div>
+    <div class="rating-info" id="rating-info">Выберите оценку</div>
+
+
+    <button type="submit">Отправить</button>
+
+    </form>
+    {% elif not order.take_order %}
+    <p class="question">Вы получили питание?</p>
+    <form method="post" action="{% url 'get_order' order.id %}">
+        {% csrf_token %}
+            <div class="buttons"><button class="btn" type="submit">Да</button></div>
+    </form>
+    {% else %}
+    <p class="review-text">Вы уже оставили отзыв об этом блюде</p>
+    {% endif %}
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+const stars = document.querySelectorAll('.star');
+        const starsContainer = document.getElementById('stars-container');
+        const ratingInfo = document.getElementById('rating-info');
+        
+        // Текущий рейтинг (0 - нет оценки)
+        let currentRating = 0;
+        // Последняя активная звезда (для отслеживания повторного нажатия)
+        let lastClickedStar = null;
+        
+        // Функция для обновления звездочек
+        function updateStars(rating) {
+            stars.forEach(star => {
+                const value = parseInt(star.getAttribute('data-value'));
+                
+                if (value <= rating) {
+                    star.classList.remove('star-empty');
+                    star.classList.add('star-filled');
+                } else {
+                    star.classList.remove('star-filled');
+                    star.classList.add('star-empty');
+                }
+            });
+            
+            // Обновляем текст информации
+            if (rating > 0) {
+                ratingInfo.textContent = `Ваша оценка: ${rating}/5`;
+                ratingInfo.style.opacity = '1';
+            } else {
+                ratingInfo.textContent = 'Выберите оценку';
+                ratingInfo.style.opacity = '0.7';
+            }
+            
+            currentRating = rating;
+            document.getElementById('rating-input').value = currentRating;
+        }
+        
+        // Функция для сброса всех звезд
+        function resetStars() {
+            updateStars(0);
+            lastClickedStar = null;
+        }
+        
+        // Добавляем обработчики событий для каждой звезды
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                
+                // Если нажали на ту же звезду, что и в прошлый раз - сбрасываем
+                if (lastClickedStar === value && currentRating === value) {
+                    resetStars();
+                } else {
+                    // Иначе устанавливаем новую оценку
+                    updateStars(value);
+                    lastClickedStar = value;
+                }
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                
+                // Временно показываем рейтинг при наведении
+                stars.forEach(s => {
+                    const sValue = parseInt(s.getAttribute('data-value'));
+                    if (sValue <= value) {
+                        s.style.color = '#9d9bd1';
+                    } else {
+                        s.style.color = '#d3d3d3';
+                    }
+                });
+                
+                // Показываем предварительную оценку
+                if (value > 0) {
+                    ratingInfo.textContent = `Поставить оценку: ${value}/5`;
+                    ratingInfo.style.opacity = '1';
+                }
+            });
+            
+            star.addEventListener('mouseout', function() {
+                // Возвращаем к текущему рейтингу
+                updateStars(currentRating);
+            });
+        });
+        
+        // Для всей области звезд тоже добавляем обработчики для улучшения UX
+        starsContainer.addEventListener('mouseleave', function() {
+            updateStars(currentRating);
+        });
+        
+        // Инициализация: все звезды пустые
+        updateStars(0);
+    });
+</script>
+
+</body>
+</html>
