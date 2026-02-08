@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оценка заказа</title>
+     <link rel="stylesheet" href="rating.css" /> 
+</head>
+<body>
+
+<header class="header">
+    <div class="logo"><img src="Logo.png"> </div>
+
+    <nav class="nav">
+      <a href="#">Меню</a>
+      <a href="#">Цена</a>
+      <a href="#">Контакты</a>
+    </nav>
+
+    <div class="profile"><a><img src='Без названия-2.png' width="75px" ></a></div>
+  </div>
+</header>
+
+<div class="content">
+    <h1>Заказ №???</h1>
+    <p class="question">Вы получили питание?</p>
+    
+    <div class="buttons">
+        <button class="btn">Да</button>
+        <button class="btn">Нет</button>
+    </div>
+
+    <p class="review-text">Оставьте пожалуйста отзыв о блюде</p>
+    
+    <div class="stars" id="stars-container">
+        <span class="star star-empty" data-value="1">★</span>
+        <span class="star star-empty" data-value="2">★</span>
+        <span class="star star-empty" data-value="3">★</span>
+        <span class="star star-empty" data-value="4">★</span>
+        <span class="star star-empty" data-value="5">★</span>
+    </div>
+    
+    <div class="rating-info" id="rating-info">Выберите оценку</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+const stars = document.querySelectorAll('.star');
+        const starsContainer = document.getElementById('stars-container');
+        const ratingInfo = document.getElementById('rating-info');
+        
+        // Текущий рейтинг (0 - нет оценки)
+        let currentRating = 0;
+        // Последняя активная звезда (для отслеживания повторного нажатия)
+        let lastClickedStar = null;
+        
+        // Функция для обновления звездочек
+        function updateStars(rating) {
+            stars.forEach(star => {
+                const value = parseInt(star.getAttribute('data-value'));
+                
+                if (value <= rating) {
+                    star.classList.remove('star-empty');
+                    star.classList.add('star-filled');
+                } else {
+                    star.classList.remove('star-filled');
+                    star.classList.add('star-empty');
+                }
+            });
+            
+            // Обновляем текст информации
+            if (rating > 0) {
+                ratingInfo.textContent = `Ваша оценка: ${rating}/5`;
+                ratingInfo.style.opacity = '1';
+            } else {
+                ratingInfo.textContent = 'Выберите оценку';
+                ratingInfo.style.opacity = '0.7';
+            }
+            
+            currentRating = rating;
+        }
+        
+        // Функция для сброса всех звезд
+        function resetStars() {
+            updateStars(0);
+            lastClickedStar = null;
+        }
+        
+        // Добавляем обработчики событий для каждой звезды
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                
+                // Если нажали на ту же звезду, что и в прошлый раз - сбрасываем
+                if (lastClickedStar === value && currentRating === value) {
+                    resetStars();
+                } else {
+                    // Иначе устанавливаем новую оценку
+                    updateStars(value);
+                    lastClickedStar = value;
+                }
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                
+                // Временно показываем рейтинг при наведении
+                stars.forEach(s => {
+                    const sValue = parseInt(s.getAttribute('data-value'));
+                    if (sValue <= value) {
+                        s.style.color = '#9d9bd1';
+                    } else {
+                        s.style.color = '#d3d3d3';
+                    }
+                });
+                
+                // Показываем предварительную оценку
+                if (value > 0) {
+                    ratingInfo.textContent = `Поставить оценку: ${value}/5`;
+                    ratingInfo.style.opacity = '1';
+                }
+            });
+            
+            star.addEventListener('mouseout', function() {
+                // Возвращаем к текущему рейтингу
+                updateStars(currentRating);
+            });
+        });
+        
+        // Для всей области звезд тоже добавляем обработчики для улучшения UX
+        starsContainer.addEventListener('mouseleave', function() {
+            updateStars(currentRating);
+        });
+        
+        // Инициализация: все звезды пустые
+        updateStars(0);
+    });
+</script>
+
+</body>
+</html>
