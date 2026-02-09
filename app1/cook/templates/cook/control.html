@@ -30,9 +30,11 @@
   <h1 id="color_2">готовых блюд</h1> </div>
   
   <section class="grid">
-    {% for ord in Order %}
+    {% for ord, images in Order %}
     <div class="card">
-      <div class="image">{{ ord.structure }}</div>
+      <div class="image">{% if images %}
+        <img src="{{ images.url }}">
+    {% endif %}</div>
       <div class="name">{{ ord.structure }}</div>
       <form method="post" action="{% url 'ready_change' ord.id %}">
             {% csrf_token %}
@@ -46,4 +48,5 @@
 </html>
 {% else %}
 <h2>У вас нет прав</h2>
+
 {% endif %}
