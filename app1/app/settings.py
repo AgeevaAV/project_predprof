@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qxzv3(#6)@cwlomd5m39+mk%y3tpe_oi%bi+iamo$)3(s%x8v)'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -144,6 +144,7 @@ TIME_ZONE = 'Europe/Moscow'
 USE_TZ = True
 USE_I18N = True
 USE_L10N = True
+
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
