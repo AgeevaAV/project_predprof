@@ -32,7 +32,7 @@
    <div class="card">
     <div class="image">Заглушка</div>
     <div class="name">{{ ord.structure }}</div>
-
+    <div class="price">Стоимость: {{ ord.priceAll }}</div>
     {% if ord.ready and not ord.take_order%}
         <a class="price">Вы можете забрать заказ</a>
     {% elif ord.ready and ord.take_order %}
@@ -48,4 +48,5 @@
 
 
 </body>
+
 </html>
