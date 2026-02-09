@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from administrator.models import Applications
 from orders.models import Order
 from cook.models import Food
+from catalog.models import Catalog
 # Create your views here.
 def Create_application(request):
     application = request.POST.get('urgency')
@@ -68,10 +69,14 @@ def Ready_change(request, id_order):
     return redirect('control')
 def Control_C(request):
     order = Order.objects.filter(ready = False)
-
+    a = []
+    for ord in order:
+        t = Catalog.objects.get(name = ord.structure)
+        a.append(t.image)
+    order1 = zip(order,a)
     context = {
         'title':'Контроль',
-        'Order':order,
+        'Order':order1,
     }
 
     return render(request,'cook/control.html', context)
@@ -125,5 +130,6 @@ def Accounting_C(request):
         'lunch':lunch1,
         'breakfast':breakfast1,
     }
+
 
     return render(request,'cook/accounting.html', context)
