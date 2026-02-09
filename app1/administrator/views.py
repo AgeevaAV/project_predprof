@@ -66,7 +66,14 @@ def Statistics_A(request):
     return render(request,'administrator/statistics.html', context)
 
 def Reports_A(request):
-    income = Income.objects.get(id = 1)
+    if Income.objects.exists():
+        income = Income.objects.get(id = 1)
+    else:
+        income = Income.objects.create(
+            expenses = 0,
+            purchases = 0,
+            income = 0,
+        )
     if request.GET.get('option1'):
         inc = int(request.GET.get('option1'))
         income.expenses = inc
@@ -94,5 +101,6 @@ def Reports_A(request):
         'dont_get':dont_get,
         'income':income,
     }
+
 
     return render(request,'administrator/reports.html', context)
