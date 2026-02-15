@@ -15,3 +15,7 @@ Aктивация виртуального окружения (каждый ра
 python manage.py runserver
 Проект будет доступен по адресу: http://127.0.0.1:8000
 Админ панель: http://127.0.0.1:8000/admin/
+
+
+https://github.com/user-attachments/assets/1bd18704-9e7f-4faa-8e31-cf6ee05b47f6
+
