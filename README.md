@@ -17,5 +17,6 @@ python manage.py runserver
 Админ панель: http://127.0.0.1:8000/admin/
 
 
-https://github.com/user-attachments/assets/1bd18704-9e7f-4faa-8e31-cf6ee05b47f6
+https://rutube.ru/video/f2cb39cba481c60239bc0c028f574a9c/
+
 
